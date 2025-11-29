@@ -17,13 +17,11 @@ export default function Login() {
         e.preventDefault();
         setError("");
 
-        // Validation
         if (!username || !password) {
             setError("Invalid username or password");
             return;
         }
 
-        // Hard-coded credentials
         if (username === "user" && password === "password") {
             setLoggedInUser(username);
             return;
@@ -32,13 +30,10 @@ export default function Login() {
         setError("Invalid username or password");
     };
 
-    // Show welcome screen after login
     if (loggedInUser) {
         return (
             <Box textAlign="center" mt={5}>
-                <Typography variant="h4">
-                    Welcome, {loggedInUser}
-                </Typography>
+                <Typography variant="h4">Welcome, {loggedInUser}</Typography>
             </Box>
         );
     }
@@ -54,29 +49,30 @@ export default function Login() {
                 borderRadius: 3
             }}
         >
-            <Typography variant="h5" mb={2}>
-                Login
-            </Typography>
-
+            <h1>Login</h1>
             <form onSubmit={handleSubmit}>
-                <TextField
-                    label="Username"
-                    name="username"                
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                />
+                <label>
+                    Username
+                    <TextField
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        fullWidth
+                        margin="normal"
+                        inputProps={{ "data-testid": "username-input" }}
+                    />
+                </label>
 
-                <TextField
-                    label="Password"
-                    name="password"               
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                />
+                <label>
+                    Password
+                    <TextField
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        fullWidth
+                        margin="normal"
+                        inputProps={{ "data-testid": "password-input" }}
+                    />
+                </label>
 
                 {error && (
                     <Typography color="error" mt={1}>
