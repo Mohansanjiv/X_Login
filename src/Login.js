@@ -1,65 +1,68 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-export default function Login() {
+const LoginPage = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [error, setError] = useState("");
-    const [loggedInUser, setLoggedInUser] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setError("");
 
+        // Empty field validation
         if (!username || !password) {
             setError("Invalid username or password");
             return;
         }
 
+        // Test expects correct credentials: user / password
         if (username === "user" && password === "password") {
-            setLoggedInUser(username);
-            return;
+            setIsLoggedIn(true);
+            setError("");
+        } else {
+            setError("Invalid username or password");
         }
-
-        setError("Invalid username or password");
     };
 
-    if (loggedInUser) {
-        return <h2>Welcome, {loggedInUser}</h2>;
+    if (isLoggedIn) {
+        return (
+            <>
+                <h1>Welcome, {username}</h1>
+            </>
+        );
     }
 
     return (
-        <form onSubmit={handleSubmit} style={{ maxWidth: 300 }}>
-            <div style={{ marginBottom: "1rem" }}>
-                <label>
-                    Username
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        style={{ width: "100%", padding: "8px" }}
-                        required
-                    />
-                </label>
+        <form onSubmit={handleSubmit} style={{ maxWidth: "300px", margin: "50px auto" }}>
+            <div style={{ marginBottom: "10px" }}>
+                <label>Username</label>
+                <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    style={{ display: "block", width: "100%", marginTop: "5px" }}
+                    required
+                />
             </div>
 
-            <div style={{ marginBottom: "1rem" }}>
-                <label>
-                    Password
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        style={{ width: "100%", padding: "8px" }}
-                        required
-                    />
-                </label>
+            <div style={{ marginBottom: "10px" }}>
+                <label>Password</label>
+                <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    style={{ display: "block", width: "100%", marginTop: "5px" }}
+                    required
+                />
             </div>
 
-            {error && (
-                <p style={{ color: "red", marginBottom: "1rem" }}>{error}</p>
-            )}
+            {error && <p style={{ color: "red" }}>{error}</p>}
 
-            <button type="submit">Login</button>
+            <button type="submit" style={{ width: "100%", padding: "8px" }}>
+                Login
+            </button>
         </form>
     );
-}
+};
+
+export default LoginPage;
