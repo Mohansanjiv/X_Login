@@ -17,11 +17,13 @@ export default function Login() {
         e.preventDefault();
         setError("");
 
+        // Validation
         if (!username || !password) {
             setError("Invalid username or password");
             return;
         }
 
+        // Hard-coded credentials
         if (username === "user" && password === "password") {
             setLoggedInUser(username);
             return;
@@ -30,6 +32,7 @@ export default function Login() {
         setError("Invalid username or password");
     };
 
+    // Show welcome screen after login
     if (loggedInUser) {
         return (
             <Box textAlign="center" mt={5}>
@@ -51,10 +54,14 @@ export default function Login() {
                 borderRadius: 3
             }}
         >
-            <h1>Login</h1>
+            <Typography variant="h5" mb={2}>
+                Login
+            </Typography>
+
             <form onSubmit={handleSubmit}>
                 <TextField
                     label="Username"
+                    name="username"                
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     fullWidth
@@ -63,6 +70,7 @@ export default function Login() {
 
                 <TextField
                     label="Password"
+                    name="password"               
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
