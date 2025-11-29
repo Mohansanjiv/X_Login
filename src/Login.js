@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button, Typography, Paper } from "@mui/material";
+import { Box, Typography, Paper, Button } from "@mui/material";
 
 export default function Login() {
     const [username, setUsername] = useState("");
@@ -67,6 +67,7 @@ export default function Login() {
                                 borderRadius: "4px",
                                 border: "1px solid #ccc",
                             }}
+                            required
                         />
                     </label>
                 </Box>
@@ -87,6 +88,7 @@ export default function Login() {
                                 borderRadius: "4px",
                                 border: "1px solid #ccc",
                             }}
+                            required
                         />
                     </label>
                 </Box>
@@ -98,7 +100,7 @@ export default function Login() {
                 )}
 
                 <Button type="submit" variant="contained" fullWidth>
-                    Login
+                    Submit
                 </Button>
             </form>
         </Paper>
