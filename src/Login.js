@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-    Box,
-    TextField,
-    Button,
-    Typography,
-    Paper
-} from "@mui/material";
+import { Box, Button, Typography, Paper } from "@mui/material";
 
 export default function Login() {
     const [username, setUsername] = useState("");
@@ -17,11 +11,13 @@ export default function Login() {
         e.preventDefault();
         setError("");
 
+        // Validation
         if (!username || !password) {
             setError("Invalid username or password");
             return;
         }
 
+        // Hard-coded credentials
         if (username === "user" && password === "password") {
             setLoggedInUser(username);
             return;
@@ -30,6 +26,7 @@ export default function Login() {
         setError("Invalid username or password");
     };
 
+    // Show welcome screen after login
     if (loggedInUser) {
         return (
             <Box textAlign="center" mt={5}>
@@ -42,50 +39,65 @@ export default function Login() {
         <Paper
             elevation={3}
             sx={{
-                maxWidth: 320,
+                maxWidth: 360,
                 mx: "auto",
                 mt: 8,
                 p: 4,
-                borderRadius: 3
+                borderRadius: 3,
             }}
         >
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Username
-                    <TextField
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        fullWidth
-                        margin="normal"
-                        inputProps={{ "data-testid": "username-input" }}
-                    />
-                </label>
+            <Typography variant="h5" mb={3} textAlign="center">
+                Login
+            </Typography>
 
-                <label>
-                    Password
-                    <TextField
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        fullWidth
-                        margin="normal"
-                        inputProps={{ "data-testid": "password-input" }}
-                    />
-                </label>
+            <form onSubmit={handleSubmit}>
+                <Box mb={2}>
+                    <label>
+                        Username
+                        <input
+                            type="text"
+                            name="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            style={{
+                                display: "block",
+                                width: "100%",
+                                padding: "8px",
+                                marginTop: "4px",
+                                borderRadius: "4px",
+                                border: "1px solid #ccc",
+                            }}
+                        />
+                    </label>
+                </Box>
+
+                <Box mb={2}>
+                    <label>
+                        Password
+                        <input
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            style={{
+                                display: "block",
+                                width: "100%",
+                                padding: "8px",
+                                marginTop: "4px",
+                                borderRadius: "4px",
+                                border: "1px solid #ccc",
+                            }}
+                        />
+                    </label>
+                </Box>
 
                 {error && (
-                    <Typography color="error" mt={1}>
+                    <Typography color="error" mb={2}>
                         {error}
                     </Typography>
                 )}
 
-                <Button
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                    sx={{ mt: 2 }}
-                >
+                <Button type="submit" variant="contained" fullWidth>
                     Login
                 </Button>
             </form>
