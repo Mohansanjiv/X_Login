@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Box, Typography, Paper, Button } from "@mui/material";
 
 export default function Login() {
     const [username, setUsername] = useState("");
@@ -11,13 +10,11 @@ export default function Login() {
         e.preventDefault();
         setError("");
 
-        // Validation
         if (!username || !password) {
             setError("Invalid username or password");
             return;
         }
 
-        // Hard-coded credentials
         if (username === "user" && password === "password") {
             setLoggedInUser(username);
             return;
@@ -26,83 +23,43 @@ export default function Login() {
         setError("Invalid username or password");
     };
 
-    // Show welcome screen after login
     if (loggedInUser) {
-        return (
-            <Box textAlign="center" mt={5}>
-                <Typography variant="h4">Welcome, {loggedInUser}</Typography>
-            </Box>
-        );
+        return <h2>Welcome, {loggedInUser}</h2>;
     }
 
     return (
-        <Paper
-            elevation={3}
-            sx={{
-                maxWidth: 360,
-                mx: "auto",
-                mt: 8,
-                p: 4,
-                borderRadius: 3,
-            }}
-        >
-            <Typography variant="h5" mb={3} textAlign="center">
-                Login
-            </Typography>
+        <form onSubmit={handleSubmit} style={{ maxWidth: 300 }}>
+            <div style={{ marginBottom: "1rem" }}>
+                <label>
+                    Username
+                    <input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        style={{ width: "100%", padding: "8px" }}
+                        required
+                    />
+                </label>
+            </div>
 
-            <form onSubmit={handleSubmit}>
-                <Box mb={2}>
-                    <label>
-                        Username
-                        <input
-                            type="text"
-                            name="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            style={{
-                                display: "block",
-                                width: "100%",
-                                padding: "8px",
-                                marginTop: "4px",
-                                borderRadius: "4px",
-                                border: "1px solid #ccc",
-                            }}
-                            required
-                        />
-                    </label>
-                </Box>
+            <div style={{ marginBottom: "1rem" }}>
+                <label>
+                    Password
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        style={{ width: "100%", padding: "8px" }}
+                        required
+                    />
+                </label>
+            </div>
 
-                <Box mb={2}>
-                    <label>
-                        Password
-                        <input
-                            type="password"
-                            name="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            style={{
-                                display: "block",
-                                width: "100%",
-                                padding: "8px",
-                                marginTop: "4px",
-                                borderRadius: "4px",
-                                border: "1px solid #ccc",
-                            }}
-                            required
-                        />
-                    </label>
-                </Box>
+            {error && (
+                <p style={{ color: "red", marginBottom: "1rem" }}>{error}</p>
+            )}
 
-                {error && (
-                    <Typography color="error" mb={2}>
-                        {error}
-                    </Typography>
-                )}
-
-                <Button type="submit" variant="contained" fullWidth>
-                    Submit
-                </Button>
-            </form>
-        </Paper>
+            <button type="submit">Login</button>
+        </form>
     );
 }
